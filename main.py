@@ -75,7 +75,7 @@ def update_empti():
         _phone = _json['phone']
         _address = _json['address']
         if _name and _age and _phone and _address and _customerID and request.method == 'PUT':
-            sqlQuery "UPDATE empti SET name=%s, age=%s, phone=%s, address=%s WHERE customerID=%s"
+            sqlQuery = "UPDATE empti SET name=%s, age=%s, phone=%s, address=%s WHERE customerID=%s"
             bindData = (_name, _age, _phone, _address, _customerID,)
             conn = mysql.connect()
             cursor = conn.cursor()

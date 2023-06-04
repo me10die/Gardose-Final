@@ -1,5 +1,5 @@
 from app import app
-from final_database.mysql import MYSQL
+from flaskext.mysql import MYSQL
 
 mysql = MySQL()
 app.config['MYSQL_DATABASE_USER'] = 'root'

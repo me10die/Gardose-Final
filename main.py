@@ -86,11 +86,11 @@ def update_empti():
             return response
         else:
             return showMessage()
-        except Exception as e:
-            print(e)
-        finally:
-            cursor.close()
-            conn.close()
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
 
 
 @app.route('/delete/', methods=['DELETE'])

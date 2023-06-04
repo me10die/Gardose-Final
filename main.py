@@ -93,4 +93,17 @@ def update_empti():
             conn.close()
 
 
-    
+@app.route('/delete/', methods=['DELETE'])
+def delete_empti(customerID):
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM empti WHERE customerID=%s", (customerID))
+        conn.commit()
+        response.status_code = 200
+        return response
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()

@@ -47,3 +47,19 @@ def empti():
         cursor.close()
         conn.close()
 
+
+@app.route('/empti/')
+def empti_details(empti_ID):
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursor.DictCursor)
+        cursor.execute("SELECT customerID, name, age, phone, address FROM empti WHERE customerID =%s", empti_ID)
+        emptiRow = cursor.fetchone()
+        response = jsonify(emptiRow)
+        response.status_code = 200
+        return response
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()

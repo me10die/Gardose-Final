@@ -31,3 +31,19 @@ def create_empti():
         conn.close()
 
 
+@app.route('/empti')
+def empti():
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        cursor.execute("SELECT customerID, name, email, phone, address FROM empti")
+        emptiRow = cursor.fetchone()
+        response = jsonify(epmtiRow)
+        response.status_code = 200
+        return response
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close()
+        conn.close()
+

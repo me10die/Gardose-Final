@@ -53,7 +53,7 @@ def empti_details(empti_ID):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursor.DictCursor)
-        cursor.execute("SELECT customerID, name, age, phone, address FROM empti WHERE customerID =%s", empti_ID)
+        cursor.execute("SELECT customerID, name, age, phone, address FROM empti WHERE customerID = %s", empti_ID)
         emptiRow = cursor.fetchone()
         response = jsonify(emptiRow)
         response.status_code = 200
@@ -63,3 +63,34 @@ def empti_details(empti_ID):
     finally:
         cursor.close()
         conn.close()
+
+
+@app.route('/update', methods=['PUT'])
+def update_empti():
+    try:
+        _json = request.json
+        _customerID = _json['customerID']
+        _name = _json['name']
+        _age = _json['age']
+        _phone = _json['phone']
+        _address = _json['address']
+        if _name and _age and _phone and _address and _customerID and request.method == 'PUT':
+            sqlQuery "UPDATE empti SET name=%s, age=%s, phone=%s, address=%s WHERE customerID=%s"
+            bindData = (_name, _age, _phone, _address, _customerID,)
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.execute(sqlQuery, bindData)
+            conn.commit()
+            response = jsonify("The Data updated successfully!")
+            response.status_code = 200
+            return response
+        else:
+            return showMessage()
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
+
+
+    
